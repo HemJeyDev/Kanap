@@ -1,6 +1,3 @@
-//Changement du nom de la page Cart en Panier
-document.title = "Panier";
-
 //Variable "productRegisterInLocalStorage" pour mettre keys et values du local storage
 let productRegisterInLocalStorage = JSON.parse(localStorage.getItem("product"));
 
@@ -20,6 +17,7 @@ let totalPriceProductCart = 0;
 
 //Variables pour la fonction supprimer
 let idDelete = 0;
+let colorDelete = 0;
 
 //Variables pour la validation du panier
 const buttonOrder = document.getElementById("order");
