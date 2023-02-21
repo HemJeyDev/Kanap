@@ -1,22 +1,32 @@
-const blocCanape = document.getElementById("items"); //variable
+// Sélection d'emplacement d'affichage des produits sur l'html section id "items" 
+const sectionItems = document.querySelector('#items');
+// Récupération de l'api ajouter à la constante listProducts
+fetch("http://localhost:3000/api/products")
+  .then(response => response.json())
+  .then(data => {
+    for (const listProducts of data){
+      console.log(listProducts);
+      // Création des éléments manquants de l'html et insertion des données de l'api
+      let newA = document.createElement('a');
+      newA.setAttribute("href", `./product.html?id=${listProducts._id}`);
+      sectionItems.appendChild(newA);
 
-fetch("http://localhost:3000/api/products/") //récupération des donnés via requête API
-	.then((response) => response.json()) //conversion des données en JSON pour JS
-	.then((data) => {
-		//data pour tableau
-		for (let champ of data) {
-			//boucle pour importer chaque champ du JSON et lui attribuer une variable
-			const idCanape = champ._id;
-			const imageCanape = champ.imageUrl;
-			const altTexte = champ.altTxt;
-			const nomCanape = champ.nom;
-			const descriptionCanape = champ.description;
-			blocCanape.innerHTML += `<a href="./product.html?id=${idCanape}">
-        <article>
-          <img src="${imageCanape}" alt="${altTexte}">
-            <h3 class="productName">${nomCanape}</h3>
-            <p class="productDescription">${descriptionCanape}</p>
-        </article>
-    								</a>`; //photo et info insérer comme indiqué dans html 
-		}
-	})
+      let newArticle = document.createElement('article');
+      newA.appendChild(newArticle);
+
+      let newImg = document.createElement('img');
+      newImg.setAttribute("src", listProducts.imageUrl);
+      newImg.setAttribute("alt", listProducts.altTxt);
+      newArticle.appendChild(newImg);
+
+      let newH3 = document.createElement('h3');
+      newH3.setAttribute("class","productName");
+      newH3.innerText = listProducts.name;
+      newArticle.appendChild(newH3);
+      
+      let newP = document.createElement('p');
+      newP.setAttribute("class","productDescription");
+      newP.innerText = listProducts.description;
+      newArticle.appendChild(newP);
+    }
+   })
