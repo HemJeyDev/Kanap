@@ -1,7 +1,7 @@
-// Récupération de l'ID du produit dans l'URL
+//Récupération de l'ID du produit dans l'URL
 const productId = new URLSearchParams(window.location.search).get("id");
 
-// Si on a bien récupéré un id, récupération des données de l'API correspondant à cet id 
+//Si on a bien récupéré un id, récupération des données de l'API correspondant à cet id 
 if (productId !== null){
 fetch(`http://localhost:3000/api/products/${productId}`)
   .then(response => response.json())
@@ -90,6 +90,8 @@ fetch(`http://localhost:3000/api/products/${productId}`)
                     
                     //Transformation format JSON et envoi des infos dans la clé "produit" du localStorage
                     localStorage.setItem("product", JSON.stringify(productRegisterInLocalStorage))
+                    
+                    document.location.href = 'cart.html'
                 }
 
                 //Variable "productRegisterInLocalStorage" récupération des keys et des values dans localStorage contrôle si localStorage est vide ou non
@@ -111,7 +113,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
                 //Si variable messageLocalStorageUpdating est vrai alors message :
                 if(messageLocalStorageUpdating){
                     alert(`La quantité de ${selectProduct.name} de couleur ${choiceColor} a bien été ajouté au panier.`);
-                    }
+                }
 
             }
             //Si couleur non selectionné ou quantité non comprise entre 1 et 100 alors on affiche un message d'alerte
@@ -129,3 +131,4 @@ else{
     alert(`Le produit que vous avez sélectionné n'a pas été trouvé !`);
     window.location.href = "index.html";
  }
+ 
